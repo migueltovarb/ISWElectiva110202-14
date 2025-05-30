@@ -1,0 +1,43 @@
+{% extends 'hospital/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Lista de Pacientes</h2>
+    
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Teléfono</th>
+                    <th>Email</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for paciente in pacientes %}
+                <tr>
+                    <td>{{ paciente.first_name }}</td>
+                    <td>{{ paciente.last_name }}</td>
+                    <td>{{ paciente.numero_telefono }}</td>
+                    <td>{{ paciente.email }}</td>
+                    <td>
+                        <a href="{% url 'patients-update' paciente.id %}" class="btn btn-sm btn-warning">Editar</a>
+                        <a href="{% url 'patients-delete' paciente.id %}" class="btn btn-sm btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">No hay pacientes registrados</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <a href="{% url 'patients-create' %}" class="btn btn-primary mt-3">
+        <i class="bi bi-plus-circle"></i> Agregar Nuevo Paciente
+    </a>
+</div>
+{% endblock %}
